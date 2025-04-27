@@ -1,0 +1,59 @@
+{% comment %}
+  Renders inventory quantities for a product variant broken down by location.
+  Accepts:
+  - variant: {Object} Product variant object to check inventory for.
+  - show_all_locations: {Boolean} Whether to show all locations or only those with inventory (default: false).
+  - show_quantity: {Boolean} Whether to show the exact quantity or just availability (default: true).
+
+  Usage:
+  {% render 'inventory-by-location', variant: product.selected_or_first_available_variant, show_all_locations: true, show_quantity: true %}
+{% endcomment %}
+
+{%- assign store_availabilities = variant.store_availabilities -%}
+{%- if store_availabilities.size > 0 -%}
+  <div class="inventory-by-location">
+    <h3 class="inventory-by-location__title">{{ 'products.product.inventory_by_location' | t | default: 'Inventory By Location' }}</h3>
+    
+    <ul class="inventory-by-location__list list-unstyled">
+      {%- for availability in store_availabilities -%}
+        {%- if show_all_locations or availability.available -%}
+          <li class="inventory-by-location__item">
+            <div class="inventory-by-location__location">
+              <h4 class="h5">{{ availability.location.name | escape }}</h4>
+              
+              <p class="inventory-by-location__status">
+                {%- if availability.available -%}
+                  <span class="inventory-by-location__available">
+                    {%- if show_quantity == false -%}
+                      {{ 'products.product.inventory_in_stock' | t | default: 'In stock' }}
+                    {%- else -%}
+                      {%- if variant.inventory_management == 'shopify' and variant.inventory_quantity_by_location[availability.location.id] != blank -%}
+                        {{ 'products.product.inventory_in_stock_show_count' | t: quantity: variant.inventory_quantity_by_location[availability.location.id] | default: variant.inventory_quantity_by_location[availability.location.id] | append: ' in stock' }}
+                      {%- else -%}
+                        {{ 'products.product.inventory_in_stock' | t | default: 'In stock' }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </span>
+                {%- else -%}
+                  <span class="inventory-by-location__unavailable">
+                    {{ 'products.product.inventory_out_of_stock' | t | default: 'Out of stock' }}
+                  </span>
+                {%- endif -%}
+              </p>
+              
+              {%- if availability.location.address != blank -%}
+                <address class="inventory-by-location__address">
+                  {{ availability.location.address | format_address }}
+                  
+                  {%- if availability.location.address.phone.size > 0 -%}
+                    <p>{{ availability.location.address.phone }}</p>
+                  {%- endif -%}
+                </address>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%} 
