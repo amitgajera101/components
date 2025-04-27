@@ -463,7 +463,20 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-              test --
+              <!-- Standard inventory display -->
+                <p class="product__inventory">
+                  {% if product.selected_or_first_available_variant.inventory_management == 'shopify' %}
+                    {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+                      <span class="product__inventory-available">
+                        {{ 'products.product.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity }}
+                      </span>
+                    {% else %}
+                      <span class="product__inventory-unavailable">
+                        {{ 'products.product.inventory_out_of_stock' | t }}
+                      </span>
+                    {% endif %}
+                  {% endif %}
+                </p>
                 {% render 'inventory-by-location', variant: product.selected_or_first_available_variant, show_all_locations: true, show_quantity: true %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
