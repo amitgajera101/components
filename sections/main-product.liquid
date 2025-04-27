@@ -477,7 +477,7 @@
                     {% endif %}
                   {% endif %}
                 </p>
-
+                {{ product.selected_variant.store_availabilities | json }}
                 {%- for availability in product.selected_variant.store_availabilities -%}
                    {{ forloop.index }} {{ availability.location.name }}
                   {% endfor % %}
