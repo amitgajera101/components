@@ -463,6 +463,10 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+
+              {% for country in localization.available_countries -%}
+                {{ country }}
+              {%- endfor %}
               <!-- Standard inventory display -->
                 <p class="product__inventory">
                   {% if product.selected_or_first_available_variant.inventory_management == 'shopify' %}
