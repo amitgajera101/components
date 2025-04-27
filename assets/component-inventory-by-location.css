@@ -1,0 +1,57 @@
+.inventory-by-location {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 4px;
+}
+
+.inventory-by-location__title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: calc(var(--font-heading-scale) * 1.6rem);
+}
+
+.inventory-by-location__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inventory-by-location__item {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.inventory-by-location__item:last-child {
+  border-bottom: none;
+}
+
+.inventory-by-location__location h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.inventory-by-location__status {
+  margin-bottom: 0.5rem;
+}
+
+.inventory-by-location__available {
+  color: rgb(62, 214, 96);
+  font-weight: 500;
+}
+
+.inventory-by-location__unavailable {
+  color: rgb(200, 200, 200);
+}
+
+.inventory-by-location__address {
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.75);
+  margin-top: 0.75rem;
+}
+
+.inventory-by-location__address p {
+  margin: 0.25rem 0 0 0;
+} 
