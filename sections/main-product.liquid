@@ -477,6 +477,10 @@
                     {% endif %}
                   {% endif %}
                 </p>
+
+                {%- for availability in store_availabilities -%}
+                    {{ availability.location.name }}
+                  {% endfor % %}
                 {% render 'inventory-by-location', variant: product.selected_or_first_available_variant, show_all_locations: true, show_quantity: true %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
