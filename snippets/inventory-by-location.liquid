@@ -10,6 +10,7 @@
 {% endcomment %}
 
 {%- assign store_availabilities = variant.store_availabilities -%}
+inn--{{ store_availabilities.size }}
 {%- if store_availabilities.size > 0 -%}
   <div class="inventory-by-location">
     <h3 class="inventory-by-location__title">{{ 'products.product.inventory_by_location' | t | default: 'Inventory By Location' }}</h3>
